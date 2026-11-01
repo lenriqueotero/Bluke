@@ -112,6 +112,14 @@ class SettingsActivity : ComponentActivity() {
                                         startActivity(Intent(this@SettingsActivity, BehaviorActivity::class.java))
                                     }
                                 ),
+                                SettingsItemData(
+                                    title = "Input mode cycle",
+                                    subtitle = "Choose which modes the toolbar button visits",
+                                    icon = { Icon(Icons.Default.SwapHoriz, null, tint = MaterialTheme.colorScheme.primary) },
+                                    onClick = {
+                                        startActivity(Intent(this@SettingsActivity, QuickCycleActivity::class.java))
+                                    }
+                                ),
                             )
                         )
                         SettingsCardGroup(

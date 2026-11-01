@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 
 private const val INPUT_MODE_CYCLE_PREFERENCE = "cycle_connection_modes"
+private const val INPUT_MODE_CYCLE_MIGRATED_PREFERENCE = "input_mode_cycle_migrated"
 
 enum class InputMode(
     val id: Int,
@@ -26,9 +27,10 @@ private const val REMOVED_MOUSE_MODE_KEY = "mouse"
 private const val REMOVED_KEYBOARD_TOUCHPAD_MODE_KEY = "keyboard_touchpad"
 val defaultInputModeKeys: Set<String> = InputMode.entries.mapTo(linkedSetOf()) { it.preferenceKey }
 
-fun normalizeInputModeKeys(savedKeys: Set<String>?): Set<String> {
+fun normalizeInputModeKeys(savedKeys: Set<String>?, legacyDefaultMigrated: Boolean = false): Set<String> {
     val normalized = when {
-        savedKeys == null || savedKeys == legacyDefaultModeKeys -> defaultInputModeKeys
+        savedKeys == null -> defaultInputModeKeys
+        savedKeys == legacyDefaultModeKeys && !legacyDefaultMigrated -> defaultInputModeKeys
         else -> savedKeys.mapNotNullTo(linkedSetOf()) { key ->
             when (key) {
                 REMOVED_MOUSE_MODE_KEY -> InputMode.MEDIA_PRESENTATION.preferenceKey
@@ -44,9 +46,14 @@ fun normalizeInputModeKeys(savedKeys: Set<String>?): Set<String> {
 
 fun SharedPreferences.enabledInputModes(): List<InputMode> {
     val saved = getStringSet(INPUT_MODE_CYCLE_PREFERENCE, null)?.toSet()
-    val normalized = normalizeInputModeKeys(saved)
-    if (saved != normalized) {
-        edit { putStringSet(INPUT_MODE_CYCLE_PREFERENCE, normalized) }
+    // The old default only migrates once. After that, the same set is a deliberate choice.
+    val migrated = getBoolean(INPUT_MODE_CYCLE_MIGRATED_PREFERENCE, false)
+    val normalized = normalizeInputModeKeys(saved, legacyDefaultMigrated = migrated)
+    if (saved != normalized || !migrated) {
+        edit {
+            putStringSet(INPUT_MODE_CYCLE_PREFERENCE, normalized)
+            putBoolean(INPUT_MODE_CYCLE_MIGRATED_PREFERENCE, true)
+        }
     }
     return InputMode.entries.filter { normalized.contains(it.preferenceKey) }
 }

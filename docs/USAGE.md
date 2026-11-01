@@ -107,6 +107,7 @@ A dedicated remote for couch media browsing and presentations.
 
 ### Controls & Connection
 * **Quick-Cycle Choices:** Pick which layouts, themes, sounds, and controller modes appear when tapping toolbar buttons.
+* **Input Mode Cycle:** Choose which input modes the toolbar button visits. At least one stays enabled. Holding the mode button opens the same list.
 * **Behavior:** Turn on phone volume button forwarding, or enable the experimental *Keep audio on this phone* setting.
 * **Controller Settings:** Set your default gamepad mode.
 
