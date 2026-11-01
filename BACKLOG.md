@@ -2,11 +2,15 @@
 
 proyecto:: bluke
 estado:: activo
-actualizado:: 2026-10-31
+actualizado:: 2026-11-01
 
 Sale de la revisión de código sobre `bcf4f14`. Las líneas citadas son de ese commit y los bugs se trazaron leyendo, sin ejecutarlos. `TPV` es `app/src/main/java/dev/arnv/bluke/ui/TouchpadView.kt` y `BKM` es `.../bluetooth/BluetoothKeyboardManager.kt`.
 
 ## Abierto
+
+### Upstream
+- [ ] **Decidir el PR a upstream de `feat/modos-del-toggle`** (2026-10-31, Chabe #5723) prioridad:: media
+	La rama sale de `upstream/main` y es un solo PR. Si hay que dividirla, y si se abre, lo decide Enrique.
 
 ### Errores
 - [ ] **Salto del cursor al terminar el scroll a dos dedos** (2026-10-31, revisión de código) prioridad:: alta

@@ -1,6 +1,6 @@
 # SPEC — bluke
 
-estado:: v0.1 (2026-10-31)
+estado:: v0.2 (2026-11-01)
 
 Bluke es una app Android en Kotlin que convierte el teléfono en un dispositivo Bluetooth HID: teclado, trackpad, gamepad y control multimedia. Este repo es el fork de Enrique de [arnav-kr/Bluke](https://github.com/arnav-kr/Bluke), con licencia AGPL-3.0.
 
@@ -46,6 +46,16 @@ El descriptor es compuesto y siempre publica las cuatro colecciones:
 
 El mouse es relativo: X y Y de −127 a 127, tres botones y rueda real (Usage 0x38). No hay AC Pan ni Digitizer. Los gestos se resuelven en el teléfono y salen como movimiento, rueda y botones, así que no dependen de `hid-multitouch` ni de gestos del host. Cambiar el descriptor obliga a volver a emparejar, porque los hosts guardan el SDP.
 
+## Modos del toggle
+
+El toggle es el botón que cicla los modos de entrada: teclado, trackpad, gamepad y multimedia. Está en la barra de cada vista y como botón redondo en el inicio. Sólo visita los modos prendidos, que se guardan en `cycle_connection_modes` (`app_prefs`).
+
+La lista de casillas ya existe en upstream: `QuickCycleActivity`, con todos los modos prendidos por omisión y al menos uno siempre prendido. Al volver a la app, si el modo actual se apagó, `HomeScreen` pasa al primero habilitado. Esta versión cambia tres cosas, sólo de interfaz y preferencias, sin tocar el descriptor HID:
+
+- **Entrada en Ajustes.** Hasta ahora la lista sólo se abría con pulsación larga en la barra de una vista. Se añade una fila en *Controls & connection*.
+- **Migración de una sola vez.** `{keyboard, touchpad, gamepad}` era el default anterior a Multimedia, y la normalización lo trataba como tal en cada lectura. Por eso apagar sólo Multimedia no duraba. La marca `input_mode_cycle_migrated` hace que esa conversión ocurra una vez; después, ese conjunto es una elección del usuario.
+- **Guía de primer uso del gamepad.** Si se apaga el modo actual y se cae en Gamepad sin haber visto la guía, la guía se muestra.
+
 ## Seguridad y privacidad
 
 El código no tiene cliente HTTP, analítica ni binarios propios, y el manifest del APK release no trae permiso `INTERNET`. Las dependencias son androidx y kotlinx. Aparte de audio e imágenes, el único binario del repo es `gradle-wrapper.jar`, verificado contra el checksum oficial de Gradle 9.5.1.
@@ -61,6 +71,7 @@ La app pide ubicación también en Android 12+, donde no la exige ni la usa, y `
 - **Firma con llave propia, fuera del repo.** `app/build.gradle.kts` ya lee la firma del entorno, así que compilar no exige cambiarlo.
 - **El repo es público.** GitHub no permite un fork privado de un repo público, y así se puede contribuir (`.sin-github`).
 - **Las aportaciones van por PR desde ramas de `upstream/main`.** Así un PR no arrastra los commits propios de `main`.
+- **Abrir un PR a upstream lo decide Enrique.** Las ramas se integran a `main` y se suben a `origin`; a upstream no se escribe sin su decisión.
 
 ## Plan
 
