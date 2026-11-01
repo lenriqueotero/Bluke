@@ -27,7 +27,7 @@ Sale de la revisión de código sobre `bcf4f14`. Las líneas citadas son de ese 
 	`onGetReport` sólo registra el evento (BKM:1292). Sin reportes Feature, el impacto debería ser bajo.
 
 ### Mejoras para la cama
-- [ ] **Probar en la Hisense 65A6H con Moonlight** (2026-10-31, revisión de código) prioridad:: alta
+- [ ] **Probar en la tele con Moonlight** (2026-10-31, revisión de código) prioridad:: alta
 	Confirmar emparejamiento, rueda y clics. Las cuatro colecciones podrían formar un solo dispositivo de entrada y Moonlight ver un mando fantasma; es inferido y sólo se confirma en la tele.
 - [ ] **Scroll en dp, más lento por omisión y con inversión** (2026-10-31, revisión de código) prioridad:: alta
 	Hoy es 1 muesca cada 16.7 px, unos 1.1 mm en FHD+ (estimado), y depende de la resolución de pantalla (TPV:911). No hay opción de invertir.

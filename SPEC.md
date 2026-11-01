@@ -6,7 +6,7 @@ Bluke es una app Android en Kotlin que convierte el teléfono en un dispositivo 
 
 ## Para qué
 
-Enrique lo usa en un Samsung S24 Ultra para controlar desde la cama su PC Linux (GNOME Wayland), que ve en una tele Hisense 65A6H con Android 11 (kernel 4.19, sin `hid-multitouch`) por Moonlight. En esa tele sólo funciona bien un mouse relativo con rueda HID real, porque Android 11 no convierte gestos a dos dedos en scroll. El fork existe para compilar una versión propia y para corregir y mejorar lo que ese uso pide.
+Caso de uso: controlar desde la cama una PC Linux (GNOME Wayland) vista en una tele con Android 11 (kernel 4.19, sin `hid-multitouch`) por Moonlight. En esa tele sólo funciona bien un mouse relativo con rueda HID real, porque Android 11 no convierte gestos a dos dedos en scroll. El fork existe para compilar una versión propia y para corregir y mejorar lo que ese uso pide.
 
 ## Alcance
 
@@ -56,14 +56,14 @@ La app pide ubicación también en Android 12+, donde no la exige ni la usa, y `
 
 ## Decisiones
 
-- **Se conserva `dev.arnv.bluke`.** Enrique desinstala la versión de Play y no hace falta otro paquete.
+- **Se conserva `dev.arnv.bluke`.** Se instala en lugar de la versión de Play.
 - **Se instala release con R8.** Compose en debug se siente lento, y en un trackpad eso se nota.
 - **Firma con llave propia, fuera del repo.** `app/build.gradle.kts` ya lee la firma del entorno, así que compilar no exige cambiarlo.
-- **El repo es público.** GitHub no permite un fork privado de un repo público, y Enrique lo quiere así para contribuir (`.sin-github`).
+- **El repo es público.** GitHub no permite un fork privado de un repo público, y así se puede contribuir (`.sin-github`).
 - **Las aportaciones van por PR desde ramas de `upstream/main`.** Así un PR no arrastra los commits propios de `main`.
 
 ## Plan
 
-1. Probar la compilación propia en la 65A6H y confirmar emparejamiento, rueda y si Moonlight ve un mando fantasma.
+1. Probar la compilación propia en la tele y confirmar emparejamiento, rueda y si Moonlight ve un mando fantasma.
 2. Corregir los errores de gestos y reconexión del backlog, con un PR por arreglo.
 3. Hacer las mejoras para la cama que resulten necesarias después de la prueba.
