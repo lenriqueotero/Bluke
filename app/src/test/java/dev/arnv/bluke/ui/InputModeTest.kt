@@ -16,6 +16,13 @@ class InputModeTest {
     }
 
     @Test
+    fun oldThreeModeSetIsAChoiceOnceMigrated() {
+        val choice = setOf("keyboard", "touchpad", "gamepad")
+
+        assertEquals(choice, normalizeInputModeKeys(choice, legacyDefaultMigrated = true))
+    }
+
+    @Test
     fun deliberateSubsetIsPreserved() {
         assertEquals(
             setOf("keyboard", "touchpad"),

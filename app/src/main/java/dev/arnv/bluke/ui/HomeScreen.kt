@@ -202,6 +202,13 @@ fun HomeScreen(
     var showGamepadGuide by rememberSaveable { mutableStateOf(false) }
     var pendingGamepadMode by rememberSaveable { mutableStateOf<Int?>(null) }
 
+    // Falling back from a disabled mode skips switchInputMode, so the guide is checked here.
+    LaunchedEffect(launchMode, isKeyboardActive) {
+        if (isKeyboardActive && shouldShowGamepadGuide(launchMode, sharedPrefs.getBoolean("has_seen_gamepad_guide", false))) {
+            showGamepadGuide = true
+        }
+    }
+
     fun switchInputMode(newMode: Int) {
         if (shouldShowGamepadGuide(newMode, sharedPrefs.getBoolean("has_seen_gamepad_guide", false))) {
             pendingGamepadMode = newMode

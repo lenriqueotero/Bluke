@@ -3,6 +3,15 @@
 All notable user-facing changes and improvements to Bluke are documented in this file.
 For detailed usage instructions, see the [Usage Guide](docs/USAGE.md).
 
+## [Unreleased]
+
+### Added
+- **Input Mode Cycle in Settings:** The list of modes the toolbar button visits now has its own row under *Controls & connection*.
+
+### Fixed
+- Turning off only Multimedia now sticks instead of returning on the next launch.
+- The gamepad guide now appears when disabling the current mode lands on Gamepad for the first time.
+
 ## [1.1.0] - 2026-10-09
 
 > [!IMPORTANT]
