@@ -43,3 +43,17 @@ Thumbs.db
 
 # ref
 ref
+
+# — base de `proyecto adoptar` —
+.env.*
+*.pem
+*.key
+*token*
+*secret*
+credentials*
+.venv/
+venv/
+node_modules/
+__pycache__/
+dist/
+.claude/settings.local.json
